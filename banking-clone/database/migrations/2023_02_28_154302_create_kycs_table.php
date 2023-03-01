@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('address');
+            $table->string('bvn')->nullable();
+            $table->string('image')->nullable();
+            $table->string('id_type');
+            $table->string('id_number');
             $table->string('id_card');
             $table->boolean('kyc_status')->default(0);
             $table->timestamps();

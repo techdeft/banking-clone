@@ -29,7 +29,7 @@
                                         <input type="text" id="username" class="form-control" name="first_name"
                                             placeholder="First Name" value="{{ old('first_name') }}" required />
                                         @error('first_name')
-                                            {{ $message }}
+                                            <span class="text-danger"> {{ $message }}</span>
                                         @enderror
                                     </div>
                                     <!-- Username -->
@@ -38,7 +38,7 @@
                                         <input type="text" id="username" class="form-control" name="last_name"
                                             placeholder="Last Name" value="{{ old('last_name') }}" required />
                                         @error('last_name')
-                                            {{ $message }}
+                                            <span class="text-danger"> {{ $message }}</span>
                                         @enderror
                                     </div>
 
@@ -49,7 +49,7 @@
                                     <input type="tell" id="tell" class="form-control" name="phone"
                                         placeholder="081XXXXXXXX" value="{{ old('phone') }}" required />
                                     @error('phone')
-                                        {{ $message }}
+                                        <span class="text-danger"> {{ $message }}</span>
                                     @enderror
                                 </div>
                                 <!-- Email -->
@@ -58,7 +58,7 @@
                                     <input type="email" id="email" class="form-control" name="email"
                                         placeholder="Email address here" value="{{ old('email') }}" required />
                                     @error('email')
-                                        {{ $message }}
+                                        <span class="text-danger"> {{ $message }}</span>
                                     @enderror
                                 </div>
 
@@ -68,7 +68,7 @@
                                     <input type="password" id="password" class="form-control" name="password"
                                         placeholder="**************" required />
                                     @error('password')
-                                        {{ $message }}
+                                        <span class="text-danger"> {{ $message }}</span>
                                     @enderror
                                 </div>
 
@@ -78,7 +78,7 @@
                                     <input type="password" id="password" class="form-control" name="password_confirmation"
                                         placeholder="**************" required />
                                     @error('password_confirmation')
-                                        {{ $message }}
+                                        <span class="text-danger"> {{ $message }}</span>
                                     @enderror
                                 </div>
                                 <!-- Checkbox -->

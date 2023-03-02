@@ -8,9 +8,9 @@
             <div class="col-lg-12 col-md-12 col-12">
                 <div class="border-bottom pb-4 mb-4 d-lg-flex justify-content-between align-items-center">
                     <div class="mb-3 mb-lg-0">
-                        <h1 class="mb-0 h2 fw-bold">👋 {{ Auth::user()->first_name }}</h1>
+                        <h1 class="mb-0 h2 fw-bold">Hi! 👋 {{ Auth::user()->first_name }}</h1>
                     </div>
-                    <div class="d-flex">
+                    {{-- <div class="d-flex">
                         <div class="input-group me-3  ">
                             <input class="form-control flatpickr" type="text" placeholder="Select Date"
                                 aria-describedby="basic-addon2">
@@ -20,7 +20,7 @@
 
                         </div>
                         <a href="#" class="btn btn-primary">Setting</a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
 
                         </div>
                         <h2 class="fw-bold mb-1">
-                            $10,800
+                            ${{ Auth::user()->wallet->balance }}
                         </h2>
                         <span class="text-success fw-semi-bold"><i class="fe fe-trending-up me-1"></i>+20.9$</span>
                         <span class="ms-1 fw-medium">history</span>
@@ -55,8 +55,11 @@
 
                             </div>
                             <div class="col-5 col-md-3 bg-black p-3 rounded m-2 text-white">
-                                <i class="fe fe-arrow-up fs-3"></i>
-                                <span class="fs-6 text-uppercase fw-semi-bold">Send</span>
+                                <a class="text-white" data-bs-toggle="modal" data-bs-target="#taskModal">
+                                    <i class="fe fe-arrow-up fs-3"></i>
+                                    <span class="fs-6 text-uppercase fw-semi-bold">Send</span>
+                                </a>
+
                             </div>
                             {{-- <div class="col-3 col-md-3 bg-black p-3 rounded m-2 text-white">
                                 <i class="fe fe-dollar-sign fs-3"> </i>
@@ -153,179 +156,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-8 col-lg-12 col-md-12 col-12">
-                <!-- Card -->
-                <div class="card h-100 mb-4">
-                    <!-- Card header -->
-                    <div
-                        class="card-header d-flex align-items-center
-                  justify-content-between card-header-height">
-                        <h4 class="mb-0">Transactions</h4>
-                        <a href="#" class="btn btn-outline-secondary btn-sm">View all</a>
-                    </div>
-                    <!-- Card body -->
-                    <div class="card-body">
-                        <!-- List group -->
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item px-0 pt-0 ">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <div class="avatar avatar-md avatar-indicators avatar-offline">
-                                            <img alt="avatar" src="{{ asset('assets/images/avatar/avatar-1.jpg') }}"
-                                                class="rounded-circle">
-                                        </div>
-                                    </div>
-                                    <div class="col ms-n3">
-                                        <h4 class="mb-0 h5">Rob Percival</h4>
-                                        <span class="me-2 fs-6">
-                                            <span class="text-dark  me-1 fw-semi-bold">42</span>Courses</span>
-                                        <span class="me-2 fs-6">
-                                            <span class="text-dark  me-1 fw-semi-bold">1,10,124</span>Students</span>
-                                        <span class="fs-6">
-                                            <span class="text-dark  me-1 fw-semi-bold">32,000</span> Reviews
-                                        </span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <span class="dropdown dropstart">
-                                            <a class="btn-icon btn btn-ghost btn-sm rounded-circle" href="#"
-                                                role="button" id="courseDropdown7" data-bs-toggle="dropdown"
-                                                data-bs-offset="-20,20" aria-expanded="false">
-                                                <i class="fe fe-more-vertical"></i>
-                                            </a>
-                                            <span class="dropdown-menu" aria-labelledby="courseDropdown7">
-                                                <span class="dropdown-header">Settings</span>
-                                                <a class="dropdown-item" href="#"><i
-                                                        class="fe fe-edit dropdown-item-icon "></i>Edit</a>
-                                                <a class="dropdown-item" href="#"><i
-                                                        class="fe fe-trash dropdown-item-icon "></i>Remove</a>
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </li>
-                            <!-- List group -->
-                            <li class="list-group-item px-0 ">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <div class="avatar avatar-md avatar-indicators avatar-online">
-                                            <img alt="avatar" src="{{ asset('assets/images/avatar/avatar-2.jpg') }}"
-                                                class="rounded-circle">
-                                        </div>
-                                    </div>
-                                    <div class="col ms-n3">
-                                        <h4 class="mb-0 h5">Jose Portilla</h4>
-                                        <span class="me-2 fs-6">
-                                            <span class="text-dark  me-1 fw-semi-bold">12</span>Courses</span>
-                                        <span class="me-2 fs-6">
-                                            <span class="text-dark  me-1 fw-semi-bold">21,567</span>Students</span>
-                                        <span class="fs-6">
-                                            <span class="text-dark  me-1 fw-semi-bold">22,000
-                                            </span> Reviews
-                                        </span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <span class="dropdown dropstart">
-                                            <a class="btn-icon btn btn-ghost btn-sm rounded-circle" href="#"
-                                                role="button" id="courseDropdown8" data-bs-toggle="dropdown"
-                                                data-bs-offset="-20,20" aria-expanded="false">
-                                                <i class="fe fe-more-vertical"></i>
-                                            </a>
-                                            <span class="dropdown-menu" aria-labelledby="courseDropdown8">
-                                                <span class="dropdown-header">Settings</span>
-                                                <a class="dropdown-item" href="#"><i
-                                                        class="fe fe-edit dropdown-item-icon "></i>Edit</a>
-                                                <a class="dropdown-item" href="#"><i
-                                                        class="fe fe-trash dropdown-item-icon "></i>Remove</a>
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </li>
-
-                            <!-- List group -->
-                            <li class="list-group-item px-0 ">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <div class="avatar avatar-md avatar-indicators avatar-info">
-                                            <img alt="avatar" src="{{ asset('assets/images/avatar/avatar-6.jpg') }}"
-                                                class="rounded-circle">
-                                        </div>
-                                    </div>
-                                    <div class="col ms-n3">
-                                        <h4 class="mb-0 h5">March Delson</h4>
-                                        <span class="me-2 fs-6">
-                                            <span class="text-dark  me-1 fw-semi-bold">23</span>Courses</span>
-                                        <span class="me-2 fs-6">
-                                            <span class="text-dark  me-1 fw-semi-bold">6,304</span>Students</span>
-                                        <span class="fs-6">
-                                            <span class="text-dark  me-1 fw-semi-bold">56,000</span> Reviews
-                                        </span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <span class="dropdown dropstart">
-                                            <a class="btn-icon btn btn-ghost btn-sm rounded-circle" href="#"
-                                                role="button" id="courseDropdown10" data-bs-toggle="dropdown"
-                                                data-bs-offset="-20,20" aria-expanded="false">
-                                                <i class="fe fe-more-vertical"></i>
-                                            </a>
-                                            <span class="dropdown-menu" aria-labelledby="courseDropdown10">
-                                                <span class="dropdown-header">Settings</span>
-                                                <a class="dropdown-item" href="#"><i
-                                                        class="fe fe-edit dropdown-item-icon "></i>Edit</a>
-                                                <a class="dropdown-item" href="#"><i
-                                                        class="fe fe-trash dropdown-item-icon "></i>Remove</a>
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </li>
-                            <!-- List group -->
-                            <li class="list-group-item px-0 ">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <div class="avatar avatar-md avatar-indicators avatar-busy">
-                                            <img alt="avatar" src="{{ asset('assets/images/avatar/avatar-7.jpg') }}"
-                                                class="rounded-circle">
-                                        </div>
-                                    </div>
-                                    <div class="col ms-n3">
-                                        <h4 class="mb-0 h5">Sina Ray</h4>
-                                        <span class="me-2 fs-6">
-                                            <span class="text-dark  me-1 fw-semi-bold">14</span>Courses</span>
-                                        <span class="me-2 fs-6">
-                                            <span class="text-dark  me-1 fw-semi-bold">8,000</span>Students</span>
-                                        <span class="fs-6">
-                                            <span class="text-dark  me-1 fw-semi-bold">33,000</span> Reviews
-                                        </span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <span class="dropdown dropstart">
-                                            <a class="btn-icon btn btn-ghost btn-sm rounded-circle" href="#"
-                                                role="button" id="courseDropdown11" data-bs-toggle="dropdown"
-                                                data-bs-offset="-20,20" aria-expanded="false">
-                                                <i class="fe fe-more-vertical"></i>
-                                            </a>
-                                            <span class="dropdown-menu" aria-labelledby="courseDropdown11">
-                                                <span class="dropdown-header">Settings</span>
-                                                <a class="dropdown-item" href="#"><i
-                                                        class="fe fe-edit dropdown-item-icon "></i>Edit</a>
-                                                <a class="dropdown-item" href="#"><i
-                                                        class="fe fe-trash dropdown-item-icon "></i>Remove</a>
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-xl-4 col-lg-12 col-md-12 col-12">
+            <div class="col-xl-5 col-lg-12 col-md-12 col-12 mb-2">
                 <!-- Card -->
                 <div class="card mb-4">
                     <!-- Card header -->
@@ -355,11 +186,192 @@
                     </div>
                     <!-- Card body -->
                     <div class="card-body">
-                        <div id="traffic" class="apex-charts d-flex justify-content-center"></div>
+                        <div id="donutchart" class="apex-charts d-flex justify-content-center" style="width:100%">
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="col-xl-7 col-lg-12 col-md-12 col-12">
+                <!-- Card -->
+                <div class="card h-100 mb-4">
+                    <!-- Card header -->
+                    <div
+                        class="card-header d-flex align-items-center
+                  justify-content-between card-header-height">
+                        <h4 class="mb-0">Transactions</h4>
+                        <a href="#" class="btn btn-outline-secondary btn-sm">View all</a>
+                    </div>
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <!-- List group -->
+                        <div class="table-responsive">
+                            <!-- Table -->
+                            <table class="table mb-0 text-nowrap table-centered table-hover table-with-checkbox">
+                                <!-- Table Head -->
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Trx</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        {{-- <th>Summary</th> --}}
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Table body -->
+                                    @forelse ($trx as $item)
+                                        <tr>
+                                            <td>
+                                                @if ($item->type == 'credit')
+                                                    <div class="text-success">{{ ucfirst($item->type) }}</div>
+                                                @else
+                                                    <div class="text-danger">{{ ucfirst($item->type) }}</div>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{ $item->created_at }}
+                                            </td>
+
+                                            <td>
+                                                @if ($item->type == 'credit')
+                                                    <div class="text-success">+${{ $item->amount }}</div>
+                                                @else
+                                                    <div class="text-danger">-${{ $item->amount }}</div>
+                                                @endif
+                                            </td>
+
+
+                                            {{-- <td>
+                                                {{ $item->summary }}
+                                            </td> --}}
+
+
+                                        </tr>
+                                    @empty
+
+                                        <img src="{{ asset('assets/images/avater-1.jpg') }}" alt="">
+                                        <h5>😞 No transactions Found</h5>
+                                    @endforelse
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
     </section>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="taskModalLabel">Send Money</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="row" method="Post" action="{{ route('send.money') }}">
+                        @csrf
+                        <div class="mb-2 col-12">
+                            <label for="taskTitle" class="form-label">Account Number</label>
+                            <input type="number" class="form-control" name="account" id="account-input"
+                                placeholder="42xxxxxxxx" required="">
+                            <div class="accountname">
+
+                            </div>
+                        </div>
+
+                        <div class="mb-2 col-12">
+                            <label for="taskTitle" class="form-label">Amount</label>
+                            <input type="number" class="form-control" name="amount" min="5"
+                                max="{{ Balance() }}" id="taskTitle" placeholder="100" required="">
+                        </div>
+
+                        <div class="mb-2 col-12">
+                            <label for="descriptions" class="form-label">Summary (optional)</label>
+                            <textarea class="form-control" id="descriptions" name="summary" rows="3"></textarea>
+                        </div>
+
+
+                        <div class="col-12 d-flex justify-content-end">
+
+                            <button type="submit" class="btn btn-primary">Send Money</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        // Event listener for input field change
+        $('input[name="account"]').on('change', function() {
+
+            // Retrieve input value
+            var account = document.getElementById("account-input").value;
+
+            // Construct URL for GET request
+            var url = "{{ url('user/account/') }}/" + account;
+
+            // Send GET request using fetch function
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    // Access account details and update HTML content
+                    var accountDiv = document.querySelector(".accountname");
+                    accountDiv.innerHTML = `
+                <p class="text-primary"> ${data.first_name} ${data.last_name} </p>
+              `;
+                })
+                .catch(error => console.error(error));
+        });
+    </script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Type', 'count'],
+                ['Credit', 11],
+                ['Debit', 2],
+
+            ]);
+
+            var options = {
+                // title: 'Trx summary',
+                pieHole: 0.4,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+
+            chart.draw(data, options);
+        }
+    </script>
 @endsection

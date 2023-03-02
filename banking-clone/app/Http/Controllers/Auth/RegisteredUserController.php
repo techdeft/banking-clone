@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\{User, Wallet};
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -43,10 +43,17 @@ class RegisteredUserController extends Controller
             'last_name' => $request->last_name,
             'phone' => $request->phone,
             'email' => $request->email,
-            'account' => '0091213199',
+            'account' => GenerateAccountNumber(),
             'password' => Hash::make($request->password),
             'status' => false,
         ])->assignRole('customer');
+
+        $wallet = Wallet::create([
+            'user_id' => $user->id,
+            'balance' => false,
+            'trx_pin' => Hash::make(7671),
+
+        ]);
 
         event(new Registered($user));
 

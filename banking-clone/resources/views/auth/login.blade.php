@@ -1,90 +1,72 @@
 @extends('layouts.auth')
 @section('header')
-    <title> Login | {{ env('APP_NAME') }}</title>
+    <title>Login | {{ env('APP_NAME') }}</title>
 @endsection
 @section('auth-body')
-    <div class="col-lg-6 d-flex justify-content-center align-items-center min-vh-lg-100">
-        <div class="w-100 content-space-t-4 content-space-t-lg-2 content-space-b-1" style="max-width: 25rem;">
-            <!-- Form -->
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
-                <div class="text-center">
-                    <div class="mb-5">
-                        <h1 class="display-5">Sign in</h1>
-                        <p>Don't have an account yet? <a class="link" href="{{ route('register') }}">Sign
-                                up here</a></p>
-                    </div>
-                    @error('email')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
+    <main>
+        <section class="container d-flex flex-column">
+            <div class="row align-items-center justify-content-center g-0 min-vh-100">
+                <div class="col-lg-5 col-md-8 py-8 py-xl-0">
+                    <!-- Card -->
+                    <div class="card shadow">
+                        <!-- Card body -->
+                        <div class="card-body p-6">
+                            <div class="mb-4">
+                                <a href="#"><img src="{{ asset('assets/images/brand/logo/logo-icon.svg') }}"
+                                        class="mb-4" alt="" /></a>
+                                <h1 class="mb-1 fw-bold">Sign in</h1>
+                                <span>Don't have an account?
+                                    <a href="{{ route('register') }}" class="ms-1">Register</a></span>
+                            </div>
+                            <!-- Form -->
+                            <form method="POST" action="{{ route('login') }}">
+                                @csrf
 
-                    {{-- <div class="d-grid mb-4">
-                                    <a class="btn btn-white btn-lg" href="#">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                            <img class="avatar avatar-xss me-2" src="assets/svg/brands/google-icon.svg"
-                                                alt="Image Description">
-                                            Sign in with Google
-                                        </span>
+
+                                <!-- Email -->
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" id="email" class="form-control" name="email"
+                                        placeholder="Email address here" required />
+                                </div>
+                                <!-- Password -->
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" id="password" class="form-control" name="password"
+                                        placeholder="**************" required />
+                                </div>
+                                <div>
+                                    <!-- Button -->
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">
+                                            Login
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr class="my-4" />
+                                <div class="mt-4 text-center">
+                                    <!--Facebook-->
+                                    <a href="#" class="btn-social btn-social-outline btn-facebook">
+                                        <i class="mdi mdi-facebook fs-4"></i>
+                                    </a>
+                                    <!--Twitter-->
+                                    <a href="#" class="btn-social btn-social-outline btn-twitter">
+                                        <i class="mdi mdi-twitter fs-4"></i>
+                                    </a>
+                                    <!--LinkedIn-->
+                                    <a href="#" class="btn-social btn-social-outline btn-linkedin">
+                                        <i class="mdi mdi-linkedin"></i>
+                                    </a>
+                                    <!--GitHub-->
+                                    <a href="#" class="btn-social btn-social-outline btn-github">
+                                        <i class="mdi mdi-github"></i>
                                     </a>
                                 </div>
-
-                                <span class="divider-center text-muted mb-4">OR</span> --}}
-                </div>
-
-                <!-- Form -->
-                <div class="mb-4">
-                    <label class="form-label" for="signinSrEmail">Your email</label>
-                    <input type="email" class="form-control form-control-lg" name="email" id="signinSrEmail"
-                        tabindex="1" placeholder="email@address.com" value="{{ old('email') }}"
-                        aria-label="email@address.com" required>
-                    <span class="invalid-feedback">Please enter a valid email address.</span>
-                </div>
-                <!-- End Form -->
-
-                <!-- Form -->
-                <div class="mb-4">
-                    <label class="form-label w-100" for="signupSrPassword" tabindex="0">
-                        <span class="d-flex justify-content-between align-items-center">
-                            <span>Password</span>
-                            <a class="form-label-link mb-0" href="{{ route('password.request') }}">Forgot
-                                Password?</a>
-                        </span>
-                    </label>
-
-                    <div class="input-group input-group-merge" data-hs-validation-validate-class>
-                        <input type="password" class="js-toggle-password form-control form-control-lg" name="password"
-                            id="signupSrPassword" placeholder="8+ characters required" aria-label="8+ characters required"
-                            required minlength="8"
-                            data-hs-toggle-password-options='{
-                                         "target": "#changePassTarget",
-                                         "defaultClass": "bi-eye-slash",
-                                         "showClass": "bi-eye",
-                                         "classChangeTarget": "#changePassIcon"
-                                       }'>
-                        <a id="changePassTarget" class="input-group-append input-group-text" href="javascript:;">
-                            <i id="changePassIcon" class="bi-eye"></i>
-                        </a>
+                            </form>
+                        </div>
                     </div>
-
-                    <span class="invalid-feedback">Please enter a valid password.</span>
                 </div>
-                <!-- End Form -->
-
-                <!-- Form Check -->
-                <div class="form-check mb-4">
-                    <input class="form-check-input" type="checkbox" value="" id="termsCheckbox">
-                    <label class="form-check-label" for="termsCheckbox">
-                        Remember me
-                    </label>
-                </div>
-                <!-- End Form Check -->
-
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-primary btn-lg">Sign in</button>
-                </div>
-            </form>
-            <!-- End Form -->
-        </div>
-    </div>
-    <!-- End Col -->
+            </div>
+        </section>
+    </main>
 @endsection

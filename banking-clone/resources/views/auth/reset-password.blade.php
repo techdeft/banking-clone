@@ -42,103 +42,70 @@
 
 @extends('layouts.auth')
 @section('header')
-    <title> Register | {{ env('APP_NAME') }}</title>
+    <title>Reset Password | {{ env('APP_NAME') }}</title>
 @endsection
 @section('auth-body')
-    <div class="col-lg-6 d-flex justify-content-center align-items-center min-vh-lg-100">
-        <div class="w-100 content-space-t-4 content-space-t-lg-2 content-space-b-1" style="max-width: 25rem;">
-            <!-- Form -->
-            <form method="POST" action="{{ route('password.store') }}">
-                @csrf
+    <main>
+        <section class="container d-flex flex-column">
+            <div class="row align-items-center justify-content-center g-0 min-vh-100">
+                <div class="col-lg-5 col-md-8 py-8 py-xl-0">
+                    <!-- Card -->
+                    <div class="card shadow">
+                        <!-- Card body -->
+                        <div class="card-body p-6">
+                            <div class="mb-4">
+                                <a href="#"><img src="{{ asset('assets/images/brand/logo/logo-icon.svg') }}"
+                                        class="mb-4" alt="" /></a>
+                                <h1 class="mb-1 fw-bold">Reset Password</h1>
 
-                <!-- Password Reset Token -->
-                <input type="hidden" name="token" value="{{ $request->route('token') }}">
+                            </div>
+                            <!-- Form -->
+                            <form method="POST" action="{{ route('password.store') }}">
+                                @csrf
+
+                                <!-- Password Reset Token -->
+                                <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
 
-                <div class="text-center">
-                    <div class="mb-5">
-                        <h1 class="display-5">Reset Password</h1>
+
+
+                                <!-- Email -->
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" id="email" name="email" class="form-control"
+                                        value="{{ old('email', $request->email) }}" required />
+                                    @error('email')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <!-- Password -->
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" id="password" class="form-control" name="password"
+                                        placeholder="**************" required />
+                                </div>
+
+                                <!-- Confirm Password -->
+                                <div class="mb-3">
+                                    <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                    <input type="password" id="password_confirmation" name="password_confirmation"
+                                        class="form-control" placeholder="**************" required />
+                                </div>
+                                <div>
+                                    <!-- Button -->
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Reset Password') }}
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
                     </div>
-
-
                 </div>
-
-                <label class="form-label" for="fullNameSrEmail">Full name</label>
-
-
-                <!-- Form -->
-                <div class="mb-4">
-                    <label class="form-label" for="signupSrEmail">Your email</label>
-                    <input type="email" class="form-control form-control-lg" name="email" id="signupSrEmail"
-                        value="{{ old('email', $request->email) }}" aria-label="Markwilliams@site.com" required>
-                    <span class="invalid-feedback">Please enter a valid email address.</span>
-                    @error('email')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <!-- End Form -->
-
-                <!-- Form -->
-                <div class="mb-4">
-                    <label class="form-label" for="signupSrPassword">Password</label>
-
-                    <div class="input-group input-group-merge" data-hs-validation-validate-class>
-                        <input type="password" class="js-toggle-password form-control form-control-lg" name="password"
-                            id="signupSrPassword" placeholder="8+ characters required" aria-label="8+ characters required"
-                            required minlength="8"
-                            data-hs-toggle-password-options='{
-                       "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
-                       "defaultClass": "bi-eye-slash",
-                       "showClass": "bi-eye",
-                       "classChangeTarget": ".js-toggle-password-show-icon-1"
-                     }'>
-                        <a class="js-toggle-password-target-1 input-group-append input-group-text" href="javascript:;">
-                            <i class="js-toggle-password-show-icon-1 bi-eye"></i>
-                        </a>
-                    </div>
-
-                    <span class="invalid-feedback">Your password is invalid. Please try again.</span>
-                    @error('password')
-                        {{ $message }}
-                    @enderror
-                </div>
-                <!-- End Form -->
-
-                <!-- Form -->
-                <div class="mb-4">
-                    <label class="form-label" for="signupSrConfirmPassword">Confirm password</label>
-
-                    <div class="input-group input-group-merge" data-hs-validation-validate-class>
-                        <input type="password" class="js-toggle-password form-control form-control-lg"
-                            name="password_confirmation" id="signupSrConfirmPassword" placeholder="8+ characters required"
-                            aria-label="8+ characters required" required minlength="8"
-                            data-hs-toggle-password-options='{
-                       "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
-                       "defaultClass": "bi-eye-slash",
-                       "showClass": "bi-eye",
-                       "classChangeTarget": ".js-toggle-password-show-icon-2"
-                     }'>
-                        <a class="js-toggle-password-target-2 input-group-append input-group-text" href="javascript:;">
-                            <i class="js-toggle-password-show-icon-2 bi-eye"></i>
-                        </a>
-                    </div>
-
-                    <span class="invalid-feedback">Password does not match the confirm password.</span>
-                    @error('password_confirmation')
-                        {{ $message }}
-                    @enderror
-                </div>
-                <!-- End Form -->
-
-
-
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-primary btn-lg">{{ __('Reset Password') }}</button>
-
-                </div>
-            </form>
-            <!-- End Form -->
-        </div>
-    </div>
-    <!-- End Col -->
+            </div>
+        </section>
+    </main>
 @endsection

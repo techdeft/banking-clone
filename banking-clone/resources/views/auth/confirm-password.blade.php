@@ -3,39 +3,50 @@
     <title> Confirm Password | {{ env('APP_NAME') }}</title>
 @endsection
 @section('auth-body')
-    <div class="col-lg-6 d-flex justify-content-center align-items-center min-vh-lg-100">
-        <div class="w-100 content-space-t-4 content-space-t-lg-2 content-space-b-1" style="max-width: 25rem;">
-            <!-- Form -->
-            <form method="POST" action="{{ route('password.confirm') }}">
-                @csrf
-                <div class="text-center">
-                    <div class="mb-5">
-                        <h1 class="display-5">Confirm password?</h1>
-                        <p>{{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
-                        </p>
+    <main>
+        <section class="container d-flex flex-column">
+            <div class="row align-items-center justify-content-center g-0 min-vh-100">
+                <div class="col-lg-5 col-md-8 py-8 py-xl-0">
+                    <!-- Card -->
+                    <div class="card shadow">
+                        <!-- Card body -->
+                        <div class="card-body p-6">
+                            <div class="mb-4">
+                                <a href="#"><img src="{{ asset('assets/images/brand/logo/logo-icon.svg') }}"
+                                        class="mb-4" alt="" /></a>
+                                <h1 class="mb-1 fw-bold">Confirm Password</h1>
+                                <p>{{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+                                </p>
+                            </div>
+                            <!-- Form -->
+                            <form method="POST" action="{{ route('password.confirm') }}">
+                                @csrf
+
+
+                                <!-- Password -->
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" id="password" name="password" class="form-control"
+                                        name="password" placeholder="**************" required />
+                                    @error('password')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <!-- Button -->
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Confirm') }}
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr class="my-4" />
+
+                            </form>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Form -->
-                <div class="mb-4">
-                    <label class="form-label" for="resetPasswordSrEmail" tabindex="0">Your Password</label>
-
-                    <input type="password" class="form-control form-control-lg" name="password" id="resetPasswordSrEmail"
-                        tabindex="1" required>
-                    <span class="invalid-feedback">Please enter a valid password.</span>
-                    @error('password')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <!-- End Form -->
-
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-primary btn-lg">{{ __('Confirm') }}</button>
-
-                </div>
-            </form>
-            <!-- End Form -->
-        </div>
-    </div>
-    <!-- End Col -->
+            </div>
+        </section>
+    </main>
 @endsection

@@ -1,4 +1,4 @@
-@extends('layouts.kyc')
+{{-- @extends('layouts.kyc')
 @section('header')
     <title> Register | {{ env('APP_NAME') }}</title>
 @endsection
@@ -107,4 +107,105 @@
         </div>
     </div>
     <!-- End Col -->
+@endsection --}}
+
+
+
+
+
+@extends('layouts.auth')
+@section('header')
+    <title>Kyc | {{ env('APP_NAME') }}</title>
+@endsection
+@section('auth-body')
+    <main>
+        <section class="container d-flex flex-column">
+            <div class="row align-items-center justify-content-center g-0 min-vh-100">
+                <div class="col-lg-6 col-md-8 py-8 py-xl-0">
+                    <!-- Card -->
+                    <div class="card shadow">
+                        <!-- Card body -->
+                        <div class="card-body p-6">
+                            <div class="mb-4">
+                                <a href="#"><img src="{{ asset('assets/images/brand/logo/logo-icon.svg') }}"
+                                        class="mb-4" alt="" /></a>
+                                <h1 class="mb-1 fw-bold">Kyc</h1>
+                                <p></p>
+                            </div>
+                            <!-- Form -->
+                            <form method="POST" action="{{ route('kyc.submit') }}" enctype="multipart/form-data">
+                                @csrf
+
+
+                                <!-- Username -->
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Full Address</label>
+                                    <input type="text" id="username" class="form-control" name="address"
+                                        placeholder="Street,Area,City, State,Country" value="{{ old('address') }}"
+                                        required />
+                                    @error('address')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+
+
+
+                                <!-- Bvn -->
+                                <div class="mb-3">
+                                    <label for="bvn" class="form-label">BVN</label>
+                                    <input type="number" id="bvn" class="form-control" name="bvn"
+                                        placeholder="25647XXXXXXXX" value="{{ old('bvn') }}" />
+                                    @error('bvn')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                                <!-- Email -->
+                                <div class="mb-3">
+                                    <label for="id_type" class="form-label">ID Type</label>
+                                    <select name="id_type" id="" class="form-control form-control-lg" required>
+                                        <option value="">Select ID Type </option>
+                                        <option value="nin">NIN </option>
+                                        <option value="Int Passport">Int Passport </option>
+                                    </select>
+                                    @error('id_type')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+
+                                {{-- ID Number --}}
+                                <div class="mb-3">
+                                    <label for="id_number" class="form-label">ID Number</label>
+                                    <input type="number" id="id_number" class="form-control" name="id_number"
+                                        placeholder="25647XXXXXXXX" value="{{ old('id_number') }}" required />
+                                    @error('id_number')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+
+                                <!-- id_card -->
+                                <div class="mb-3">
+                                    <label for="id_card" class="form-label">Password</label>
+                                    <input type="file" id="id_card" class="form-control" name="id_card" required />
+                                    @error('id_card')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+
+
+                                <div>
+                                    <!-- Button -->
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Submit Kyc') }}
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 @endsection

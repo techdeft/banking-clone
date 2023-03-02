@@ -1,150 +1,127 @@
 @extends('layouts.auth')
 @section('header')
-    <title> Register | {{ env('APP_NAME') }}</title>
+    <title>Login | {{ env('APP_NAME') }}</title>
 @endsection
 @section('auth-body')
-    <div class="col-lg-6 d-flex justify-content-center align-items-center min-vh-lg-100">
-        <div class="w-100 content-space-t-4 content-space-t-lg-2 content-space-b-1" style="max-width: 25rem;">
-            <!-- Form -->
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
-                <div class="text-center">
-                    <div class="mb-5">
-                        <h1 class="display-5">Create your account</h1>
-                        <p>Already have an account? <a class="link" href="{{ route('login') }}">Sign in
-                                here</a></p>
-                    </div>
+    <main>
+        <section class="container d-flex flex-column">
+            <div class="row align-items-center justify-content-center g-0 min-vh-100">
+                <div class="col-lg-6 col-md-8 py-8 py-xl-0">
+                    <!-- Card -->
+                    <div class="card shadow">
+                        <!-- Card body -->
+                        <div class="card-body p-6">
+                            <div class="mb-4">
+                                <a href="#"><img src="{{ asset('assets/images/brand/logo/logo-icon.svg') }}"
+                                        class="mb-4" alt="" /></a>
+                                <h1 class="mb-1 fw-bold">Sign up</h1>
+                                <span>Already have an account?
+                                    <a href="{{ route('login') }}" class="ms-1">Sign in</a></span>
+                            </div>
+                            <!-- Form -->
+                            <form method="POST" action="{{ route('register') }}">
+                                @csrf
 
+                                <div class="row">
+                                    <!-- Username -->
+                                    <div class="mb-3 col">
+                                        <label for="username" class="form-label">First Name</label>
+                                        <input type="text" id="username" class="form-control" name="first_name"
+                                            placeholder="First Name" value="{{ old('first_name') }}" required />
+                                        @error('first_name')
+                                            {{ $message }}
+                                        @enderror
+                                    </div>
+                                    <!-- Username -->
+                                    <div class="mb-3 col">
+                                        <label for="username" class="form-label">Last Name</label>
+                                        <input type="text" id="username" class="form-control" name="last_name"
+                                            placeholder="Last Name" value="{{ old('last_name') }}" required />
+                                        @error('last_name')
+                                            {{ $message }}
+                                        @enderror
+                                    </div>
 
-                </div>
+                                </div>
+                                <!-- Username -->
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input type="tell" id="tell" class="form-control" name="phone"
+                                        placeholder="081XXXXXXXX" value="{{ old('phone') }}" required />
+                                    @error('phone')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                                <!-- Email -->
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" id="email" class="form-control" name="email"
+                                        placeholder="Email address here" value="{{ old('email') }}" required />
+                                    @error('email')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
 
-                <label class="form-label" for="fullNameSrEmail">Full name</label>
+                                <!-- Password -->
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" id="password" class="form-control" name="password"
+                                        placeholder="**************" required />
+                                    @error('password')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
 
-                <!-- Form -->
-                <div class="row">
-                    <div class="col-sm-6">
-                        <!-- Form -->
-                        <div class="mb-4">
-                            <input type="text" class="form-control form-control-lg" name="first_name"
-                                id="fullNameSrEmail" placeholder="First Name" value="{{ old('first_name') }}"
-                                aria-label="Mark" required>
-                            <span class="invalid-feedback">Please enter your first name.</span>
-                            @error('first_name')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                                <!-- Password -->
+                                <div class="mb-3">
+                                    <label for="password" class="form-label"> Confirm Password</label>
+                                    <input type="password" id="password" class="form-control" name="password_confirmation"
+                                        placeholder="**************" required />
+                                    @error('password_confirmation')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                                <!-- Checkbox -->
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="agreeCheck" />
+                                        <label class="form-check-label" for="agreeCheck"><span>I agree to the
+                                                <a href="terms-condition-page.html">Terms of Service </a>and
+                                                <a href="terms-condition-page.html">Privacy Policy.</a></span></label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <!-- Button -->
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Create Free Account') }}
+                                        </button>
+                                    </div>
+                                </div>
+                                {{-- <hr class="my-4" />
+                                <div class="mt-4 text-center">
+                                    <!--Facebook-->
+                                    <a href="#" class="btn-social btn-social-outline btn-facebook">
+                                        <i class="mdi mdi-facebook fs-4"></i>
+                                    </a>
+                                    <!--Twitter-->
+                                    <a href="#" class="btn-social btn-social-outline btn-twitter">
+                                        <i class="mdi mdi-twitter fs-4"></i>
+                                    </a>
+                                    <!--LinkedIn-->
+                                    <a href="#" class="btn-social btn-social-outline btn-linkedin">
+                                        <i class="mdi mdi-linkedin"></i>
+                                    </a>
+                                    <!--GitHub-->
+                                    <a href="#" class="btn-social btn-social-outline btn-github">
+                                        <i class="mdi mdi-github"></i>
+                                    </a>
+                                </div> --}}
+                            </form>
                         </div>
-                        <!-- End Form -->
-                    </div>
-
-                    <div class="col-sm-6">
-                        <!-- Form -->
-                        <div class="mb-4">
-                            <input type="text" class="form-control form-control-lg" name="last_name"
-                                placeholder="Last Name" aria-label="Williams" value="{{ old('last_name') }}" required>
-                            <span class="invalid-feedback">Please enter your last name.</span>
-                            @error('last_name')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <!-- End Form -->
                     </div>
                 </div>
-                <!-- End Form -->
-
-                <!-- Form -->
-                <div class="mb-4">
-                    <label class="form-label" for="signupSrEmail">Your email</label>
-                    <input type="email" class="form-control form-control-lg" name="email" id="signupSrEmail"
-                        placeholder="Markwilliams@site.com" aria-label="Markwilliams@site.com" value="{{ old('email') }}"
-                        required>
-                    <span class="invalid-feedback">Please enter a valid email address.</span>
-                    @error('email')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <!-- End Form -->
-
-                <!-- Form -->
-                <div class="mb-4">
-                    <label class="form-label" for="phone">Phone</label>
-                    <input type="tell" class="form-control form-control-lg" name="phone" id="signupSrEmail"
-                        placeholder="+2348165049996" aria-label="phone" value="{{ old('phone') }}" required>
-                    <span class="invalid-feedback">Please enter a valid phone.</span>
-                    @error('phone')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <!-- End Form -->
-
-                <!-- Form -->
-                <div class="mb-4">
-                    <label class="form-label" for="signupSrPassword">Password</label>
-
-                    <div class="input-group input-group-merge" data-hs-validation-validate-class>
-                        <input type="password" class="js-toggle-password form-control form-control-lg" name="password"
-                            id="signupSrPassword" placeholder="8+ characters required" aria-label="8+ characters required"
-                            required minlength="8"
-                            data-hs-toggle-password-options='{
-                       "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
-                       "defaultClass": "bi-eye-slash",
-                       "showClass": "bi-eye",
-                       "classChangeTarget": ".js-toggle-password-show-icon-1"
-                     }'>
-                        <a class="js-toggle-password-target-1 input-group-append input-group-text" href="javascript:;">
-                            <i class="js-toggle-password-show-icon-1 bi-eye"></i>
-                        </a>
-                    </div>
-
-                    <span class="invalid-feedback">Your password is invalid. Please try again.</span>
-                    @error('password')
-                        {{ $message }}
-                    @enderror
-                </div>
-                <!-- End Form -->
-
-                <!-- Form -->
-                <div class="mb-4">
-                    <label class="form-label" for="signupSrConfirmPassword">Confirm password</label>
-
-                    <div class="input-group input-group-merge" data-hs-validation-validate-class>
-                        <input type="password" class="js-toggle-password form-control form-control-lg"
-                            name="password_confirmation" id="signupSrConfirmPassword" placeholder="8+ characters required"
-                            aria-label="8+ characters required" required minlength="8"
-                            data-hs-toggle-password-options='{
-                       "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
-                       "defaultClass": "bi-eye-slash",
-                       "showClass": "bi-eye",
-                       "classChangeTarget": ".js-toggle-password-show-icon-2"
-                     }'>
-                        <a class="js-toggle-password-target-2 input-group-append input-group-text" href="javascript:;">
-                            <i class="js-toggle-password-show-icon-2 bi-eye"></i>
-                        </a>
-                    </div>
-
-                    <span class="invalid-feedback">Password does not match the confirm password.</span>
-                    @error('password_confirmation')
-                        {{ $message }}
-                    @enderror
-                </div>
-                <!-- End Form -->
-
-                <!-- Form Check -->
-                <div class="form-check mb-4">
-                    <input class="form-check-input" type="checkbox" value="" id="termsCheckbox" required>
-                    <label class="form-check-label" for="termsCheckbox">
-                        I accept the <a href="#">Terms and Conditions</a>
-                    </label>
-                    <span class="invalid-feedback">Please accept our Terms and Conditions.</span>
-                </div>
-                <!-- End Form Check -->
-
-                <div class="d-grid gap-2">
-                    <button type="submit" onclick="submit" class="btn btn-primary btn-lg">{{ __('Register') }}</button>
-
-                </div>
-            </form>
-            <!-- End Form -->
-        </div>
-    </div>
-    <!-- End Col -->
+            </div>
+        </section>
+    </main>
 @endsection

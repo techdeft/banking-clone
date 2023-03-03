@@ -29,6 +29,9 @@
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/theme.min.css') }}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.min.css">
+
     @yield('header')
 
 </head>
@@ -67,6 +70,29 @@
 
     <script src="{{ asset('assets/libs/flatpickr/dist/flatpickr.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendors/flatpickr.js') }}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        @if (Session::has('message'))
+            const type = "{{ Session::get('alert-type', 'info') }}"
+            switch (type) {
+                case 'info':
+                    toastr.info(" {{ Session::get('message') }}");
+                    break;
+                case 'success':
+                    Swal.fire('Good job!', '{{ Session::get('message') }}', 'success')
+                    break;
+                case 'warning':
+                    toastr.warning(" {{ Session::get('message') }}");
+                    break;
+                case 'error':
+                    Swal.fire('Sorry!', '{{ Session::get('message') }}', 'error')
+                    break;
+                    break;
+            }
+        @endif
+    </script>
+
 
 </body>
 

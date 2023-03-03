@@ -11,6 +11,7 @@ class Transaction extends Model
     use HasFactory;
 
     protected $fillable = [
+        'trx_ref',
         'wallet_id',
         'amount',
         'type',

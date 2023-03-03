@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('trx_ref');
             $table->integer('wallet_id');
             $table->float('amount');
             $table->enum('type', ['debit', 'credit']);

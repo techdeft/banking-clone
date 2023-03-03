@@ -48,7 +48,7 @@
                         <div class="row my-3">
                             <div class="col-5 col-md-3 bg-primary p-3 rounded m-2 text-white">
 
-                                <a href="" class="text-white">
+                                <a href="" class="text-white" data-bs-toggle="modal" data-bs-target="#payModal">
                                     <i class="fe fe-credit-card fs-3"> </i>
                                     <span class="fs-6 text-uppercase fw-semi-bold">Fund</span>
                                 </a>
@@ -186,7 +186,8 @@
                     </div>
                     <!-- Card body -->
                     <div class="card-body">
-                        <div id="donutchart" class="apex-charts d-flex justify-content-center" style="width:100%">
+                        <div id="donutchart" class="apex-charts d-flex justify-content-center"
+                            style="width:100%; width:100%;">
                         </div>
                     </div>
                 </div>
@@ -210,6 +211,7 @@
                                 <!-- Table Head -->
                                 <thead class="table-light">
                                     <tr>
+                                        <th>Trx_ref</th>
                                         <th>Trx</th>
                                         <th>Date</th>
                                         <th>Amount</th>
@@ -221,6 +223,7 @@
                                     <!-- Table body -->
                                     @forelse ($trx as $item)
                                         <tr>
+                                            <td>{{ $item->trx_ref }}</td>
                                             <td>
                                                 @if ($item->type == 'credit')
                                                     <div class="text-success">{{ ucfirst($item->type) }}</div>
@@ -285,9 +288,15 @@
                             <label for="taskTitle" class="form-label">Account Number</label>
                             <input type="number" class="form-control" name="account" id="account-input"
                                 placeholder="42xxxxxxxx" required="">
-                            <div class="accountname">
+                            {{-- <div class="accountname">
 
-                            </div>
+                            </div> --}}
+                        </div>
+
+                        <div class="mb-2 col-12">
+                            <label for="taskTitle" class="form-label">Account Name</label>
+                            <input type="text" class="form-control" id="accountname-input" readonly>
+
                         </div>
 
                         <div class="mb-2 col-12">
@@ -313,6 +322,39 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="taskModalLabel">Deposit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="row" method="Post" action="{{ route('pay') }}">
+                        @csrf
+
+                        <div class="mb-2 col-12">
+                            <label for="taskTitle" class="form-label">Amount</label>
+                            <input type="number" class="form-control" name="amount" min="50" id="taskTitle"
+                                placeholder="10000" required="">
+                        </div>
+
+
+                        <div class="col-12 d-flex justify-content-end">
+
+                            <button type="submit" class="btn btn-primary">Send Money</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -324,7 +366,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         // Event listener for input field change
         $('input[name="account"]').on('change', function() {
 
@@ -346,7 +388,31 @@
                 })
                 .catch(error => console.error(error));
         });
+    </script> --}}
+
+
+    <script type="text/javascript">
+        // Event listener for input field change
+        $('input[name="account"]').on('change', function() {
+
+            // Retrieve input value
+            var account = document.getElementById("account-input").value;
+
+            // Construct URL for GET request
+            var url = "{{ url('user/account/') }}/" + account;
+
+            // Send GET request using fetch function
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    // Access account details and update input field value
+                    var accountInput = document.getElementById("accountname-input");
+                    accountInput.value = data.first_name + " " + data.last_name;
+                })
+                .catch(error => console.error(error));
+        });
     </script>
+
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -359,14 +425,16 @@
 
             var data = google.visualization.arrayToDataTable([
                 ['Type', 'count'],
-                ['Credit', 11],
-                ['Debit', 2],
+                ['Credit', 10],
+                ['Debit', 0],
 
             ]);
 
             var options = {
                 // title: 'Trx summary',
-                pieHole: 0.4,
+                legend: 'none',
+                pieSliceText: 'label',
+                pieStartAngle: 100,
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('donutchart'));

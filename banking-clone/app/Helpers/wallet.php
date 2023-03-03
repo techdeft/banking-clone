@@ -23,6 +23,21 @@ function GenerateAccountNumber()
 }
 
 
+function trx_ref()
+{
+    $length = 19;
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+    $charactersLength = strlen($characters);
+    $trx_ref = '';
+
+    for ($i = 0; $i < $length; $i++) {
+        $trx_ref .= $characters[rand(0, $charactersLength - 1)];
+    }
+
+    return $trx_ref;
+}
+
+
 function Balance()
 {
 
@@ -31,7 +46,7 @@ function Balance()
     return $balance;
 }
 
-function debit($wallet_id, $amount, $summary)
+function debit($wallet_id, $amount, $summary, $trx)
 {
     $wallet = Wallet::find($wallet_id);
     $balance = $wallet->balance;
@@ -49,12 +64,13 @@ function debit($wallet_id, $amount, $summary)
         'amount' => $amount,
         'type' => 'debit',
         'summary' => $summary,
+        'trx_ref' => $trx,
     ]);
 
     return 'success';
 }
 
-function credit($wallet_id, $amount, $summary)
+function credit($wallet_id, $amount, $summary, $trx)
 {
     $wallet = Wallet::find($wallet_id);
     $balance = $wallet->balance;
@@ -68,15 +84,18 @@ function credit($wallet_id, $amount, $summary)
         'amount' => $amount,
         'type' => 'credit',
         'summary' => $summary,
+        'trx_ref' => $trx,
     ]);
 
     return 'success';
 }
 
-function sendMoney($sender_id, $recipient_id, $amount, $summary)
+function sendMoney($sender_id, $recipient_id, $amount, $summary, $trx)
 {
     $sender_wallet = Wallet::where('user_id', $sender_id)->first();
     $recipient_wallet = Wallet::where('user_id', $recipient_id)->first();
+
+
 
     // Check if both sender and recipient have wallets
     if (!$sender_wallet || !$recipient_wallet) {
@@ -89,16 +108,16 @@ function sendMoney($sender_id, $recipient_id, $amount, $summary)
     }
 
     // Execute debit transaction from sender wallet
-    $debit_success = debit($sender_wallet->id, $amount, $summary);
+    $debit_success = debit($sender_wallet->id, $amount, $summary, $trx);
     if (!$debit_success) {
         return false;
     }
 
     // Execute credit transaction to recipient wallet
-    $credit_success = credit($recipient_wallet->id, $amount, $summary);
+    $credit_success = credit($recipient_wallet->id, $amount, $summary,  $trx);
     if (!$credit_success) {
         // Refund sender if credit transaction failed
-        $refund_success = credit($sender_wallet->id, $amount, $summary);
+        $refund_success = credit($sender_wallet->id, $amount, $summary,  $trx);
         return false;
     }
 

@@ -30,6 +30,8 @@ Route::middleware('auth', 'verified')->group(function () {
 
     Route::get('user/account/{account}', [WalletController::class, 'getAccName']);
     Route::post('/send/money', [WalletController::class, 'send'])->name('send.money');
+    Route::post('/pay', [WalletController::class, 'pay'])->name('pay');
+    Route::get('/payment/callback{trx}', [WalletController::class, 'flutterwaveCallback'])->name('flutterwave.callback');
 });
 
 require __DIR__ . '/auth.php';

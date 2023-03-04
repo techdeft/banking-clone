@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Flutterwave\EventHandlers\EventHandlerInterface;
 
@@ -124,8 +125,28 @@ class WalletController extends Controller
         $summary = $request->summary;
         $trx = trx_ref();
 
-        sendMoney($sender_id, $recipient_id, $amount, $summary, $trx);
 
-        return redirect()->back();
+        // Retrieve the user's hashed transaction PIN from the database
+        $trx_pin = Auth::user()->wallet->trx_pin;
+        $pin = $request->pin;
+
+        // Check if the entered PIN matches the stored hash
+
+        if (Hash::check($pin, $trx_pin)) {
+            // Transaction is authorized, proceed with sending money
+            sendMoney($sender_id, $recipient_id, $amount, $summary, $trx);
+            $notify = array(
+                'message' => 'Transaction Completed',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('dashboard')->with($notify);
+        } else {
+            // PIN is incorrect, display an error message
+            $notify = array(
+                'message' => 'Incorect Transaction Pin',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('dashboard')->with($notify);
+        }
     }
 }

@@ -310,6 +310,10 @@
                             <textarea class="form-control" id="descriptions" name="summary" rows="3"></textarea>
                         </div>
 
+                        <div class="mb-2 col-12">
+                            <label for="taskTitle" class="form-label">Wallet PIN</label>
+                            <input type="password" class="form-control" name="pin" id="taskTitle" required="">
+                        </div>
 
                         <div class="col-12 d-flex justify-content-end">
 
@@ -346,7 +350,7 @@
 
                         <div class="col-12 d-flex justify-content-end">
 
-                            <button type="submit" class="btn btn-primary">Send Money</button>
+                            <button type="submit" class="btn btn-primary">Pay Now</button>
                         </div>
                     </form>
                 </div>

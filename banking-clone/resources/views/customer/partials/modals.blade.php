@@ -169,23 +169,27 @@
                    </button>
                </div>
                <div class="modal-body">
-                   <div class="row">
-                       <div class="col-5 col-md-3 bg-primary p-3 rounded m-2 text-white">
+                   <div class="me-auto">
+                       <div class="row">
+                           <div class="col-5 col-md-3 bg-primary p-3 rounded m-2 text-white">
 
-                           <a href="" class="text-white" data-bs-toggle="modal" data-bs-target="#taskModal">
-                               <i class="fe fe-users fs-3"> </i>
-                               <span class="fs-6 text-uppercase fw-semi-bold">User</span>
-                           </a>
+                               <a href="" class="text-white" data-bs-toggle="modal"
+                                   data-bs-target="#taskModal">
+                                   <i class="fe fe-users fs-3"> </i>
+                                   <span class="fs-6 text-uppercase fw-semi-bold">User</span>
+                               </a>
 
-                       </div>
-                       <div class="col-5 col-md-3 bg-black p-3 rounded m-2 text-white">
-                           <a class="text-white" data-bs-toggle="modal" data-bs-target="#BankModal">
-                               <i class="fe fe-arrow-up fs-3"></i>
-                               <span class="fs-6 text-uppercase fw-semi-bold">Bank</span>
-                           </a>
+                           </div>
+                           <div class="col-5 col-md-3 bg-black p-3 rounded m-2 text-white">
+                               <a class="text-white" data-bs-toggle="modal" data-bs-target="#BankModal">
+                                   <i class="fe fe-arrow-up fs-3"></i>
+                                   <span class="fs-6 text-uppercase fw-semi-bold">Bank</span>
+                               </a>
 
+                           </div>
                        </div>
                    </div>
+
                </div>
 
            </div>

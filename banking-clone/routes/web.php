@@ -23,6 +23,9 @@ Route::get('/dashboard', [UserDashboardController::class, 'index'])->middleware(
 
 Route::middleware('auth', 'verified')->group(function () {
 
+    Route::get('/airtime', [UserDashboardController::class, 'airtime'])->name('airtime');
+    Route::Post('/buy-airtime', [WalletController::class, 'Buyairtime'])->name('airtime.buy');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

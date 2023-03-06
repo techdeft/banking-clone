@@ -231,4 +231,61 @@ class WalletController extends Controller
             return redirect()->route('dashboard')->with($notify);
         }
     }
+
+    public function Buyairtime(Request $request)
+    {
+        $trx_id = trx_ref();
+
+        $url = 'https://api.flutterwave.com/v3/bills';
+
+        $data = array(
+            "country" => "NG",
+            "customer" => $request->phone,
+            "amount" => $request->amount,
+            "type" => "AIRTIME",
+            "reference" => $trx_id,
+        );
+
+        $headers = array(
+            'Authorization' => 'Bearer FLWSECK-3dab025677e331162af1416a6c8fd239-X',
+            'Content-Type' => 'application/json'
+        );
+
+        $trx_pin = Auth::user()->wallet->trx_pin;
+        $pin = $request->pin;
+
+        if (Hash::check($pin, $trx_pin)) {
+            $response = Http::withHeaders($headers)->post($url, $data);
+        } else {
+            $notify = array(
+                'message' => 'Incorrect Pin',
+                'alert-type' => 'error'
+            );
+            //return $response;
+            return redirect()->back()->with($notify);
+        }
+
+        if ($response->successful()) {
+            $account_name = $response->json()['data']['account_name'];
+            // Do something with the account name
+            debit(Auth::user()->wallet->id, $request->amount, "Airtime Purchase", $trx_id);
+            $notify = array(
+                'message' => 'Success',
+                'alert-type' => 'success'
+            );
+
+            //return $response;
+            return redirect()->back()->with($notify);
+        } else {
+            $error = $response->json()['message'];
+            // Handle the error
+
+            $notify = array(
+                'message' => 'Failed',
+                'alert-type' => 'error'
+            );
+            //return $response;
+            return redirect()->back()->with($notify);
+        }
+    }
 }

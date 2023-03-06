@@ -43,4 +43,9 @@ class UserDashboardController extends Controller
 
         return view('dashboard', compact('trx', 'banks'));
     }
+
+    public function airtime()
+    {
+        return view('customer.buy_airtime');
+    }
 }

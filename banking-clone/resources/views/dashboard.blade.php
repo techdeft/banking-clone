@@ -55,16 +55,12 @@
 
                             </div>
                             <div class="col-5 col-md-3 bg-black p-3 rounded m-2 text-white">
-                                <a class="text-white" data-bs-toggle="modal" data-bs-target="#taskModal">
+                                <a class="text-white" data-bs-toggle="modal" data-bs-target="#Transfer">
                                     <i class="fe fe-arrow-up fs-3"></i>
                                     <span class="fs-6 text-uppercase fw-semi-bold">Send</span>
                                 </a>
 
                             </div>
-                            {{-- <div class="col-3 col-md-3 bg-black p-3 rounded m-2 text-white">
-                                <i class="fe fe-dollar-sign fs-3"> </i>
-                                <span class="fs-6 text-uppercase fw-semi-bold">Withdraw</span>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -270,152 +266,11 @@
     </section>
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="taskModalLabel">Send Money</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form class="row" method="Post" action="{{ route('send.money') }}">
-                        @csrf
-                        <div class="mb-2 col-12">
-                            <label for="taskTitle" class="form-label">Account Number</label>
-                            <input type="number" class="form-control" name="account" id="account-input"
-                                placeholder="42xxxxxxxx" required="">
-                            {{-- <div class="accountname">
-
-                            </div> --}}
-                        </div>
-
-                        <div class="mb-2 col-12">
-                            <label for="taskTitle" class="form-label">Account Name</label>
-                            <input type="text" class="form-control" id="accountname-input" readonly>
-
-                        </div>
-
-                        <div class="mb-2 col-12">
-                            <label for="taskTitle" class="form-label">Amount</label>
-                            <input type="number" class="form-control" name="amount" min="5"
-                                max="{{ Balance() }}" id="taskTitle" placeholder="100" required="">
-                        </div>
-
-                        <div class="mb-2 col-12">
-                            <label for="descriptions" class="form-label">Summary (optional)</label>
-                            <textarea class="form-control" id="descriptions" name="summary" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-2 col-12">
-                            <label for="taskTitle" class="form-label">Wallet PIN</label>
-                            <input type="password" class="form-control" name="pin" id="taskTitle" required="">
-                        </div>
-
-                        <div class="col-12 d-flex justify-content-end">
-
-                            <button type="submit" class="btn btn-primary">Send Money</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="taskModalLabel">Deposit</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form class="row" method="Post" action="{{ route('pay') }}">
-                        @csrf
-
-                        <div class="mb-2 col-12">
-                            <label for="taskTitle" class="form-label">Amount</label>
-                            <input type="number" class="form-control" name="amount" min="50" id="taskTitle"
-                                placeholder="10000" required="">
-                        </div>
+    @include('customer.partials.modals')
 
 
-                        <div class="col-12 d-flex justify-content-end">
-
-                            <button type="submit" class="btn btn-primary">Pay Now</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    {{-- <script type="text/javascript">
-        // Event listener for input field change
-        $('input[name="account"]').on('change', function() {
-
-            // Retrieve input value
-            var account = document.getElementById("account-input").value;
-
-            // Construct URL for GET request
-            var url = "{{ url('user/account/') }}/" + account;
-
-            // Send GET request using fetch function
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    // Access account details and update HTML content
-                    var accountDiv = document.querySelector(".accountname");
-                    accountDiv.innerHTML = `
-                <p class="text-primary"> ${data.first_name} ${data.last_name} </p>
-              `;
-                })
-                .catch(error => console.error(error));
-        });
-    </script> --}}
-
-
-    <script type="text/javascript">
-        // Event listener for input field change
-        $('input[name="account"]').on('change', function() {
-
-            // Retrieve input value
-            var account = document.getElementById("account-input").value;
-
-            // Construct URL for GET request
-            var url = "{{ url('user/account/') }}/" + account;
-
-            // Send GET request using fetch function
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    // Access account details and update input field value
-                    var accountInput = document.getElementById("accountname-input");
-                    accountInput.value = data.first_name + " " + data.last_name;
-                })
-                .catch(error => console.error(error));
-        });
-    </script>
+    @include('customer.partials.ajax')
 
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

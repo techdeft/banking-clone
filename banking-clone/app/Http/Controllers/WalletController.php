@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bank;
 use App\Models\User;
 use Flutterwave\Flutterwave;
 use Illuminate\Http\Request;
@@ -146,6 +147,87 @@ class WalletController extends Controller
                 'message' => 'Incorect Transaction Pin',
                 'alert-type' => 'error'
             );
+            return redirect()->route('dashboard')->with($notify);
+        }
+    }
+
+
+    public function getBanks($account, $bank)
+    {
+
+        $url = 'https://api.flutterwave.com/v3/accounts/resolve';
+
+        $data = array(
+            'account_number' => $account,
+            'account_bank' => $bank
+        );
+
+        $headers = array(
+            'Authorization' => 'Bearer FLWSECK-3dab025677e331162af1416a6c8fd239-X',
+            'Content-Type' => 'application/json'
+        );
+
+        $response = Http::withHeaders($headers)->post($url, $data);
+
+
+
+        if ($response->successful()) {
+            $account_name = $response->json()['data']['account_name'];
+            // Do something with the account name
+            return json_encode($account_name);
+        } else {
+            $error = $response->json()['message'];
+            // Handle the error
+
+            return $response['message'];
+        }
+    }
+
+
+    public function BankTransfer(Request $request)
+    {
+        $trx_id = trx_ref();
+
+        $url = 'https://api.flutterwave.com/v3/transfers';
+
+        $data = array(
+            "account_bank" => "$request->bank",
+            "account_number" => "$request->account",
+            "amount" => $request->amount,
+            "narration" => "$request->summary",
+            "currency" => "NGN",
+            "reference" => $trx_id,
+            //"callback_url" => "https://webhook.site/b3e505b0-fe02-430e-a538-22bbbce8ce0d",
+            "debit_currency" => "NGN"
+        );
+
+        $headers = array(
+            'Authorization' => 'Bearer FLWSECK-3dab025677e331162af1416a6c8fd239-X',
+            'Content-Type' => 'application/json'
+        );
+
+        $response = Http::withHeaders($headers)->post($url, $data);
+
+        if ($response->successful()) {
+            $account_name = $response->json()['data']['account_name'];
+            // Do something with the account name
+            debit(Auth::user()->wallet->id, $request->amount, $request->summary, $trx_id);
+            $notify = array(
+                'message' => 'Sent',
+                'alert-type' => 'success'
+            );
+
+            //return $response;
+            return redirect()->route('dashboard')->with($notify);
+        } else {
+            $error = $response->json()['message'];
+            // Handle the error
+
+            $notify = array(
+                'message' => 'Failed',
+                'alert-type' => 'error'
+            );
+            //return $response;
             return redirect()->route('dashboard')->with($notify);
         }
     }

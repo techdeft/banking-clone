@@ -38,7 +38,7 @@
     <!-- navbar login -->
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-default shadow-none ">
         <div class="container px-0">
-            <a class="navbar-brand" href="../../index.html"><img src="{{ asset('assets/images/brand/logo/logo.svg') }}"
+            <a class="navbar-brand" href="/"><img src="{{ asset('assets/images/brand/logo/logo.svg') }}"
                     alt=""></a>
 
             <!-- Button -->
@@ -69,18 +69,33 @@
 
                 </ul>
 
-                <div class="ms-auto mt-3 mt-lg-0">
-                    <div class="d-flex align-items-center">
-                        <a href="#"
-                            class="form-check form-switch theme-switch btn btn-light btn-icon rounded-circle me-2 ">
-                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" for="flexSwitchCheckDefault"></label>
 
-                        </a>
+                @auth
+                    <div class="ms-auto mt-3 mt-lg-0">
+                        <div class="d-flex align-items-center">
 
-                        <a href="{{ route('login') }}" class="btn btn-primary ">Login</a>
+                            <a class="btn btn-primary" href="{{ route('dashboard') }}">
+                                👋 {{ Auth::user()->first_name }}
+                            </a>
+
+
+
+                        </div>
                     </div>
-                </div>
+                @else
+                    <div class="ms-auto mt-3 mt-lg-0">
+                        <div class="d-flex align-items-center">
+                            <a href="#"
+                                class="form-check form-switch theme-switch btn btn-light btn-icon rounded-circle me-2 ">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+
+                            </a>
+
+                            <a href="{{ route('login') }}" class="btn btn-primary ">Login</a>
+                        </div>
+                    </div>
+                @endauth
             </div>
         </div>
     </nav>
@@ -109,16 +124,22 @@
                mb-6 fw-medium">
                             <li class="mb-1 d-flex"><i
                                     class="mdi mdi-check-circle text-success
-                  me-2"></i>Simple to use,
-                                beautiful UI design</li>
+                  me-2"></i>Free inter
+                                bank
+                                transfer</li>
                             <li class="mb-1 d-flex"><i
                                     class="mdi mdi-check-circle text-success
-                  me-2"></i>Complete
-                                complex project with ease</li>
+                  me-2"></i>Unlimited USD
+                                virtual card </li>
                             <li class="mb-1 d-flex"><i
                                     class="mdi mdi-check-circle text-success
-                  me-2"></i>An intuitive
-                                admin app for developers</li>
+                  me-2"></i>Free
+                                Debit/Credit card</li>
+                            <li class="mb-1 d-flex"><i
+                                    class="mdi mdi-check-circle text-success
+                  me-2"></i>Bill and tax
+                                payment
+                                cashback </li>
                         </ul>
                         <!-- Buttons -->
                         <div class="mb-8 mb-lg-0">
@@ -147,35 +168,35 @@
                             <!-- col -->
                             <div class="col">
                                 <div class="mb-4 mb-lg-0">
-                                    <img src="../../assets/images/brand/gray-logo-airbnb.svg" alt=""
+                                    <img src="{{ asset('assets/images/brand/gray-logo-airbnb.svg') }}" alt=""
                                         class="">
                                 </div>
                             </div>
                             <!-- col -->
                             <div class="col">
                                 <div class="mb-4 mb-lg-0">
-                                    <img src="../../assets/images/brand/gray-logo-discord.svg" alt=""
+                                    <img src="{{ asset('assets/images/brand/gray-logo-discord.svg') }}" alt=""
                                         class="">
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="mb-4 mb-lg-0">
-                                    <img src="../../assets/images/brand/gray-logo-intercom.svg" alt=""
+                                    <img src="{{ asset('assets/images/brand/gray-logo-intercom.svg') }}"
+                                        alt="" class="">
+                                </div>
+                            </div>
+                            <!-- col -->
+                            <div class="col">
+                                <div class="mb-4 mb-lg-0">
+                                    <img src="{{ asset('assets/images/brand/gray-logo-stripe.svg') }}" alt=""
                                         class="">
                                 </div>
                             </div>
                             <!-- col -->
                             <div class="col">
                                 <div class="mb-4 mb-lg-0">
-                                    <img src="../../assets/images/brand/gray-logo-stripe.svg" alt=""
-                                        class="">
-                                </div>
-                            </div>
-                            <!-- col -->
-                            <div class="col">
-                                <div class="mb-4 mb-lg-0">
-                                    <img src="../../assets/images/brand/gray-logo-netflix.svg" alt=""
-                                        class="">
+                                    <img src="{{ asset('assets/images/brand/gray-logo-netflix.svg') }}"
+                                        alt="" class="">
                                 </div>
                             </div>
                         </div>
